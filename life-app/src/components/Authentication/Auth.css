@@ -1,0 +1,12 @@
+body {
+    background-color: #2f2f3c;
+    margin: 0;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.login-form {
+    margin: 0 auto;
+    font-size: 1.25rem;
+}
