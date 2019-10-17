@@ -2,7 +2,7 @@ import React from 'react';
 import { axiosWithAuth } from './axiosWithAuth';
 
 
-class Login extends React.Component {
+class RegisterForm extends React.Component {
   state = {
     credentials: {
       username: '',
@@ -22,7 +22,7 @@ class Login extends React.Component {
   login = e => {
     e.preventDefault();
     axiosWithAuth()
-      .post('auth/login', this.state.credentials)
+      .post('auth/register', this.state.credentials)
       .then(res => {
         localStorage.setItem('token', res.data.token);
         this.props.history.push('/protected');
@@ -35,7 +35,7 @@ class Login extends React.Component {
   render() {
     return (
       
-      <div className="login-form">
+      <div className="register-form">
         
         <form onSubmit={this.login}>
           <input
@@ -53,11 +53,11 @@ class Login extends React.Component {
             onChange={this.handleChange}
             placeholder="Password"
           />
-          <button>Log in</button>
+          <button>Register</button>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+export default RegisterForm;
