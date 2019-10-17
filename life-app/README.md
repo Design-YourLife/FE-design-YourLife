@@ -4,6 +4,8 @@
 
 [Deployed URL](https://design-your-life.now.sh)
 
+[Part Time - Build Sprint: Culture Document](https://www.notion.so/e344d84c5f4445709e995ed57b28c24e)
+
 [Proposal Link](https://docs.google.com/document/d/1C-I5KI3uFZNANgy-BMnn46MDcpqYpAACFY4yb9ghC2w/edit?usp=sharing)
 
 [Site Font](https://fonts.google.com/specimen/Noto+Sans)
