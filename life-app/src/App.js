@@ -1,10 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import Home from './components/Home';
 import Login from './components/Authentication/Login';
 import RegisterForm from './components/Authentication/RegisterForm';
 import PrivateRoute from './components/Authentication/PrivateRoute';
-import ActivityList from "./components/Activities";
+import ActivityList from "./components/Activities/ActivityList";
 import './App.css';
 
 function App() {
@@ -22,7 +21,7 @@ function App() {
         <Switch>
          
           <Route path="/login" component={Login} />
-          <PrivateRoute exact path="/protected" component={Home} />
+          <PrivateRoute exact path="/activities" component={ActivityList} />
           
         </Switch>
       </div>

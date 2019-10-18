@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axiosWithAuth from '../Authentication/axiosWithAuth';
+import { axiosWithAuth } from '../Authentication/axiosWithAuth';
 
 export default function ActivityList() {
   const [activity, setActivity] = useState([]);
@@ -14,7 +14,7 @@ export default function ActivityList() {
 
   return (
     <div className="activity-list">
-      
+
     </div>
   )
 };
