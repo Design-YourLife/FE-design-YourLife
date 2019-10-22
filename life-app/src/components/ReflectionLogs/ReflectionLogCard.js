@@ -1,26 +1,27 @@
-import React from 'react';
-import { Card } from 'semantic-ui-react';
+import React from "react";
 
-export class ReflectionLogCard extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            // log: this.props.log
-        }
-    }
+const ReflectionLogCard = props => {
+  const { id, date, outcomes, description, reflecetion } = props.logs;
+  return (
+    <div className="movie-card">
+      <div className="movie-director">
+        ID: <em>{id}</em>
+      </div>
+      <div className="movie-metascore">
+        DATE: <strong>{date}</strong>
+      </div>
+      <div className="movie-metascore">
+        OUTCOMES: <strong>{outcomes}</strong>
+      </div>
+      <h3>User Input</h3>
 
-    render(){
-        console.log("rendering a card");
-        return (
-        <div className="reflection-card">
-            <Card 
-            // header={log.log.user_id}
-            // meta={log.log.id}
-            // description={log.log.reflection}
-            // extra={log.log.date}
-            />
-            <button>Edit</button>
-            <button>Delete</button>
+      {logs.map(reflection => (
+        <div key={id} className="movie-star">
+          {reflection}
         </div>
-    )}
+      ))}
+    </div>
+  );
 };
+
+export default ReflectionLogCard;
