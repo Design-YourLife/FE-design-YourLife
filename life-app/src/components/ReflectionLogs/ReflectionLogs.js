@@ -12,14 +12,14 @@ const ReflectionLogs = props => {
       .then(res => {
         setReflectionLogs(res.data);
         console.log(res.data);
-        console.log(props);
       })
-      .catch(err => console.log("ERROR IN REFLECTION LOGS AXIOS", err.response));
+      .catch(err => console.log("ERROR IN REFLECTION LOGS AXIOS", err));
   }, []);
 
   return (
     <Fragment>
       <h2>Reflection Logs</h2>
+      <button>Add </button>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -31,7 +31,7 @@ const ReflectionLogs = props => {
           </tr>
         </thead>
         <tbody>
-          {reflectionLogs.map(reflection => (
+          {reflectionLogs==0 ? reflectionLogs.map(reflection => (
             <tr key={reflection.id}>
               <td>{reflection.id}</td>
 
@@ -44,7 +44,7 @@ const ReflectionLogs = props => {
                 <button className="btn btn-danger btn-sm">DELETE</button>
               </td>
             </tr>
-          ))}
+          )) : (<p>Please add a reflection</p>)}
         </tbody>
       </table>
     </Fragment>
