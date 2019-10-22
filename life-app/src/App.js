@@ -5,28 +5,25 @@ import Login from "./components/Authentication/Login";
 import RegisterForm from "./components/Authentication/RegisterForm";
 import PrivateRoute from "./components/Authentication/PrivateRoute";
 import ActivityList from "./components/Activities/Activities";
+import ReflectionLogs from "./components/ReflectionLogs/ReflectionLogs";
+import Header from "./components/Routes/Header";
+import ActivityLogs from "./components/ActivityLogs/ActivityLogs";
 import "./App.css";
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <header className="App-header">
-          <div className="login-form">
-            <span>
-              <h2>life/note</h2> <Route component={Login} />{" "}
-            </span>
-            <p>Successful login user="testUser", pswrd "pass"</p>
-            <RegisterForm />{" "}
-            <p>
-              Register accepts user/password as entered unless existing user
-            </p>
-          </div>
-        </header>
-
+      <div className="App"></div>
+      <Header />
+      <div>
         <Switch>
-          <Route path="/login" component={Login} />
-          <PrivateRoute exact path="/protected" component={Home} />
+          <Route exact path="/" component={Login} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={RegisterForm} />
+          <PrivateRoute exact path="/activities" component={ActivityList} />
+          <PrivateRoute exact path="/logs" component={ActivityLogs} />
+          <PrivateRoute exact path="/reflections" component={ReflectionLogs} />
+          <PrivateRoute exact path="/protected" component={ActivityList} />
         </Switch>
       </div>
     </Router>
