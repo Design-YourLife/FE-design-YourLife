@@ -3,23 +3,21 @@ import { axiosWithAuth } from "../Authentication/axiosWithAuth";
 import moment from "moment";
 
 const ReflectionLogs = props => {
-  console.log(props);
+//   console.log(props);
   const [ reflectionLogs, setReflectionLogs ] = useState([]);
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`/reflection-logs/${localStorage.user}/${localStorage.userid}`)
+      .get(`/reflection-logs/${localStorage.user}`) ///${localStorage.userid}
       .then(res => {
-        setReflectionLogs(res.data);
-        console.log(res.data);
+        setReflectionLogs(res.data.reflectionLogs);
+        console.log("RES: ", res.data);
       })
       .catch(err => console.log("ERROR IN REFLECTION LOGS AXIOS", err));
   }, []);
-
   return (
     <Fragment>
       <h2>Reflection Logs</h2>
-      <button>Add </button>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -31,20 +29,19 @@ const ReflectionLogs = props => {
           </tr>
         </thead>
         <tbody>
-          {reflectionLogs==0 ? reflectionLogs.map(reflection => (
+          {reflectionLogs.length>0 ? (reflectionLogs.map(reflection => (
             <tr key={reflection.id}>
               <td>{reflection.id}</td>
 
               <td>{moment(reflection.date).calendar()}</td>
-              <td>{reflection.outcomes}</td>
+              <td>{reflection.reflection}</td>
 
               <td>
-                <button className="btn btn-primary btn-sm">DETAILS</button>
                 <button className="btn btn-primary btn-sm">EDIT</button>
                 <button className="btn btn-danger btn-sm">DELETE</button>
               </td>
             </tr>
-          )) : (<p>Please add a reflection</p>)}
+          ))) : (<p>Please add a reflection</p>)}
         </tbody>
       </table>
     </Fragment>
