@@ -1,15 +1,18 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { axiosWithAuth } from "../Authentication/axiosWithAuth";
+import moment from "moment";
 
 const Activities = props => {
+  console.log(props);
   const [activityList, setActivityList] = useState([]);
 
   useEffect(() => {
     axiosWithAuth()
-      .get("/activities/testUser") //'testUser' or username must be passed in url
+      .get(`/activities/${localStorage.user}/${localStorage.userid}`)
       .then(res => {
         setActivityList(res.data);
         console.log(res.data);
+        console.log(props);
       })
       .catch(err => console.log(err.response));
   }, []);
@@ -34,7 +37,7 @@ const Activities = props => {
               <td>{activity.id}</td>
               <td>{activity.name}</td>
               <td>{activity.description}</td>
-              <td>{activity.created_at}</td>
+              <td>{moment(activity.created_at).calendar()}</td>
 
               <td>
                 <button className="btn btn-danger btn-sm">DELETE</button>

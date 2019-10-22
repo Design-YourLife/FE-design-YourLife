@@ -6,17 +6,23 @@ import RegisterForm from "./components/Authentication/RegisterForm";
 import PrivateRoute from "./components/Authentication/PrivateRoute";
 import ActivityList from "./components/Activities/Activities";
 import ReflectionLogs from "./components/ReflectionLogs/ReflectionLogs";
+import Header from "./components/Routes/Header";
+import ActivityLogs from "./components/ActivityLogs/ActivityLogs";
 import "./App.css";
 
 function App() {
   return (
     <Router>
       <div className="App"></div>
+      <Header />
       <div>
         <Switch>
+          <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/activities" component={ActivityList} />
-          <Route exact path="/reflections" component={ReflectionLogs} />
+          <Route exact path="/register" component={RegisterForm} />
+          <PrivateRoute exact path="/activities" component={ActivityList} />
+          <PrivateRoute exact path="/logs" component={ActivityLogs} />
+          <PrivateRoute exact path="/reflections" component={ReflectionLogs} />
           <PrivateRoute exact path="/protected" component={ActivityList} />
         </Switch>
       </div>
