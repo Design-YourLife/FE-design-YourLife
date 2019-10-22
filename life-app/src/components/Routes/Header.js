@@ -1,7 +1,18 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-export default class Header extends Component {
+class Header extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  logout = () => {
+    localStorage.setItem("token", "");
+    localStorage.setItem("user", "");
+    localStorage.setItem("userid", "");
+    this.props.history.push("/login");
+  };
+
   render() {
     return (
       <nav className="navbar navbar-expand-sm navbar-light bg-light">
@@ -20,7 +31,7 @@ export default class Header extends Component {
           <a className="navbar-brand" href="#">
             life/note
           </a>
-          <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+          <ul className="navbar-nav  mt-lg-0">
             <li className="nav-item active">
               <a className="nav-link" href="#">
                 Home <span className="sr-only">(current)</span>
@@ -28,12 +39,28 @@ export default class Header extends Component {
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
-                Link
+                <Link to="/login">LOGIN</Link>
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
-                Activities
+                <Link to="/activities">ACTIVITIES</Link>
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                <Link to="/reflections">REFLECTIONS</Link>
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                <Link to="/logs">LOGS</Link>
+              </a>
+            </li>
+
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                <Link onClick={this.logout}>LOGOUT</Link>
               </a>
             </li>
           </ul>
@@ -42,3 +69,5 @@ export default class Header extends Component {
     );
   }
 }
+
+export default withRouter(Header);
