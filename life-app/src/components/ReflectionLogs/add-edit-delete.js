@@ -1,0 +1,122 @@
+import React, { useEffect } from 'react';
+import { axiosWithAuth } from '../Authentication/axiosWithAuth';
+
+export class Add extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            log: '',
+            date: new Date()
+        }
+    }
+
+    handleChange = (e) => {
+        return this.setState({
+            ...this.state,
+            [e.target.name]: [e.target.value]
+        });
+    };
+
+    submit(){
+        axiosWithAuth()
+            .post(`/reflection-logs/${localStorage.user}`, this.state.log)
+            .then(res => console.log("Successfully Added", res))
+            .catch(err => console.log("has not been added: ", err))
+    };
+
+    render(){
+        return (
+            <div className="add-form">
+                <h2>Add Log</h2>
+                <form onSubmit={this.submit}>
+                    <input
+                        type="text"
+                        name="log"
+                        placeholder={this.state.log}
+                        onChange={this.handleChange}
+                        value={this.state.log}
+                    />
+                    <button onClick={this.submitEdit}>Submit</button>
+                </form>
+            </div>
+        );
+    };
+};
+
+export class Edit extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            id: props.id,
+            log: '',
+            user_id: `${localStorage.userid}`
+        }
+    }
+
+    componentDidMount(){
+        axiosWithAuth()
+            .get(`/reflection-logs/${localStorage.user}/${localStorage.userid}`)
+            .then(res => {
+                // console.log(res.data.reflectionLog.reflection)
+            this.setState({
+                log: res.data.reflectionLog.reflection
+                });
+            //   console.log("RES: ", res.data);
+            })
+            .catch(err => console.log("ERROR IN REFLECTION LOGS AXIOS", err));
+    }
+
+    setLogs = log => {
+        this.props.setLogs(log);
+    };
+
+    handleChange = (e) => {
+        return this.setState({
+            ...this.state,
+            [e.target.name]: [e.target.value]
+        });
+    };
+
+    redirect = () => {
+        this.props.history.push(`/reflections`);
+        document.location.reload(true);
+    };
+
+    submitEdit(){
+        axiosWithAuth()
+            .put(`/reflection-logs/${localStorage.user}`, this.state)
+            .then(res => {
+                this.setLogs(res);
+                console.log("ID " + this.state.id + "Successfully Edited", res)
+            })
+            .catch(err => console.log("ID " + this.state.id + "has not been deleted: ", err))
+        this.redirect()
+    }
+
+    render(){
+        return (
+        <div className="edit-form">
+            <h2>Edit Log</h2>
+            <form onSubmit={this.submitEdit}>
+                <input
+                    type="text"
+                    name="log"
+                    placeholder={this.state.log}
+                    onChange={this.handleChange}
+                    value={this.state.log}
+                />
+                <button onClick={this.submitEdit}>Submit</button>
+            </form>
+        </div>
+    );}
+};
+
+export function Delete (props) {
+    useEffect(() => {
+        axiosWithAuth()
+            .delete(`/reflection-logs/${localStorage.user}`, {id: props.id})
+            .then(res => console.log(props.id + "Successfully Deleted", res))
+            .catch(err => console.log(props.id + "has not been deleted: ", err))
+    }, []);
+    this.props.history.push(`/reflections`);
+};
