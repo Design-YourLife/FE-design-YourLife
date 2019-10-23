@@ -31,7 +31,7 @@ class Header extends Component {
           <a className="navbar-brand" href="#">
             life/note
           </a>
-          <ul className="navbar-nav  mt-lg-0">
+          <ul className="nav justify-content-center">
             <li className="nav-item active">
               <a className="nav-link" href="#">
                 Home <span className="sr-only">(current)</span>
@@ -44,17 +44,17 @@ class Header extends Component {
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
+                <Link to="/logs">CREATE LOG</Link>
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
                 <Link to="/activities">ACTIVITIES</Link>
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
                 <Link to="/reflections">REFLECTIONS</Link>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                <Link to="/logs">LOGS</Link>
               </a>
             </li>
 

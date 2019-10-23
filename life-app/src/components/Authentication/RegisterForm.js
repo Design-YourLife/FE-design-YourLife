@@ -27,7 +27,7 @@ class RegisterForm extends React.Component {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", res.data.username);
         localStorage.setItem("userid", res.data.user_id);
-        this.props.history.push("/reflections");
+        this.props.history.push("/logs");
       })
       .catch(err => console.log(err));
   };
