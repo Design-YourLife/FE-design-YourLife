@@ -60,18 +60,17 @@ export class Edit extends React.Component{
         super(props);
         this.state={
             id: props.id,
-            log: '',
-            user_id: `${localStorage.userid}`
+            reflection: ''
         }
     }
 
     componentDidMount(){
         axiosWithAuth()
-            .get(`/reflection-logs/${localStorage.user}/${localStorage.userid}/${this.props.id}`) //
+            .get(`/reflection-logs/${localStorage.user}/${localStorage.userid}/${this.props.id}`)
             .then(res => {
                 // console.log(res.data.reflectionLog.reflection)
             this.setState({
-                log: res.data.reflectionLog.reflection
+                reflection: res.data.reflectionLog.reflection
                 });
             //   console.log("RES: ", res.data);
             })
@@ -96,7 +95,12 @@ export class Edit extends React.Component{
 
     submitEdit(){
         axiosWithAuth()
-            .put(`/reflection-logs/${localStorage.user}`, this.state)
+            .put(`/reflection-logs/${localStorage.user}`, {
+                "id": `${this.state.id}`,
+                "user_id": `${localStorage.userid}`,
+                "date":  `${new Date()}`,
+                "reflection": `${this.state.reflection}`
+            })
             .then(res => {
                 this.setLogs(res);
                 console.log("ID " + this.state.id + "Successfully Edited", res)
@@ -108,14 +112,14 @@ export class Edit extends React.Component{
     render(){
         return (
         <div className="edit-form">
-            <h2>Edit Log</h2>
+            <h2>Edit Reflection</h2>
             <form onSubmit={this.submitEdit}>
                 <input
                     type="text"
-                    name="log"
-                    placeholder={this.state.log}
+                    name="reflection"
+                    placeholder={this.state.reflection}
                     onChange={this.handleChange}
-                    value={this.state.log}
+                    value={this.state.reflection}
                 />
                 <button onClick={this.submitEdit}>Submit</button>
             </form>

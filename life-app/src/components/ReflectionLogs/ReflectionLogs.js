@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { axiosWithAuth } from "../Authentication/axiosWithAuth";
 import moment from "moment";
-import { Add, Edit, Delete } from './add-edit-delete';
+import { Add, Edit } from './add-edit';
 import { Route, Link } from 'react-router-dom';
 
 const ReflectionLogs = props => {
@@ -15,9 +15,9 @@ const ReflectionLogs = props => {
 
   const Delete = (id) => {
     axiosWithAuth()
-      .delete(`/reflection-logs/${localStorage.user}`, { "id": `${id}`})
-      .then(res => console.log(props.id + "Successfully Deleted", res))
-      .catch(err => console.log(props.id + "has not been deleted: ", err.message))
+      .delete(`reflection-logs/${localStorage.user}`, {"id": id})
+      .then(res => console.log(id + "Successfully Deleted", res))
+      .catch(err => console.log(id + "has not been deleted: ", err.message))
     console.log("Delete button was pressed: " + id);
 };
 
