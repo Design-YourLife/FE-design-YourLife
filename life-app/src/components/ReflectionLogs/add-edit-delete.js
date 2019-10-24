@@ -122,13 +122,3 @@ export class Edit extends React.Component{
         </div>
     );}
 };
-
-export function Delete (props) {
-    useEffect(() => {
-        axiosWithAuth()
-            .delete(`/reflection-logs/${localStorage.user}`, {id: props.id})
-            .then(res => console.log(props.id + "Successfully Deleted", res))
-            .catch(err => console.log(props.id + "has not been deleted: ", err))
-    }, []);
-    this.props.history.push(`/reflections`);
-};
