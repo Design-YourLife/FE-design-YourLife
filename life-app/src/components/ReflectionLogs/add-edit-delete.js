@@ -5,7 +5,7 @@ export class Add extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            reflection: ''
+            reflection: 'New Reflection'
         }
     }
 
@@ -20,11 +20,14 @@ export class Add extends React.Component{
         });
     };
 
-    body = () => {
-        return this.state.reflection;
+    body = {
+        "user_id": `${localStorage.userid}`,
+        "date": `${new Date()}`,
+        "reflection": `${this.state.reflection}`
     };
 
-    submit(){
+    submit= e => {
+        e.preventDefault();
         axiosWithAuth()
             .post(`/reflection-logs/${localStorage.user}`, this.body) 
             .then(res => {
@@ -37,16 +40,16 @@ export class Add extends React.Component{
     render(){
         return (
             <div className="add-form">
-                <h2>Add Log</h2>
+                <h2>Add Reflection</h2>
                 <form onSubmit={this.submit}>
                     <input
                         type="text"
                         name="reflection"
-                        placeholder={this.state.log}
+                        placeholder={this.state.reflection}
                         onChange={this.handleChange}
-                        value={this.state.log}
+                        value={this.state.reflection}
                     />
-                    <button onClick={this.submitEdit}>Submit</button>
+                    <button onClick={this.submit}>Submit</button>
                 </form>
             </div>
         );
