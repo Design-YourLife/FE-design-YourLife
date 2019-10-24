@@ -16,11 +16,14 @@ const ReflectionLogs = props => {
   const Delete = (id) => {
     axiosWithAuth()
       .delete(`reflection-logs/${localStorage.user}`, {
-      body: {"id": id}
-    })
-      .then(res => console.log(id + "Successfully Deleted", res))
+        data: {"id": id}
+      })
+      .then(res => {
+        document.location.reload(true);
+        console.log(id + "Successfully Deleted", res);
+      })
       .catch(err => console.log(id + "has not been deleted: ", err.message))
-    console.log("Delete button was pressed: " + id);
+    console.log("Delete button was pressed with body: " + id);
 };
 
   useEffect(() => {
@@ -39,7 +42,6 @@ const ReflectionLogs = props => {
       <Link to='/reflections/add' className="btn btn-primary btn-sm">Add Log</Link>
       <Route exact path="/reflections/edit" component={() => <Edit setLogs={setLogs}/>}/>
       <Route exact path="/reflections/add" component={() => <Add setLogs={setLogs} />} /> 
-      {/* <Route exact path="/reflections/delete" component={Delete} /> */}
       <table className="table table-striped">
         <thead>
           <tr>
@@ -61,7 +63,8 @@ const ReflectionLogs = props => {
               <td>
                 <Link to={{pathname: `/reflections/edit`, state: { id: reflection.id } }} className="btn btn-primary btn-sm">Edit</Link>
                 {/* <Link to={{pathname: `reflections/delete`, state: { id: reflection.id } }} className="btn btn-primary btn-sm">Delete</Link> */}
-                <button onClick={() => Delete(reflection.id)} className="btn btn-primary btn-sm">Delete</button> 
+                <button onClick={() => {Delete(reflection.id);
+                  }} className="btn btn-primary btn-sm">Delete</button> 
               </td>
             </tr>
           ))) : (<p>Please add a reflection</p>)}
@@ -71,7 +74,3 @@ const ReflectionLogs = props => {
   );
 };
 export default ReflectionLogs;
-
-
-
-// onClick={() => document.location.reload(true)}
