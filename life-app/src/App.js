@@ -10,6 +10,7 @@ import EditLog from "./components/Activities/EditLog";
 
 import Activityform from "./components/Activities/Activityform";
 import "./App.css";
+import Activities from "./components/Activities/Activities";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={RegisterForm} />
           <Route exact path="/editlog" component={EditLog} />
-          <PrivateRoute exact path="/activities" component={ActivityLogs} />
+          <Route exact path="activities" component={Activities} />
+          <PrivateRoute exact path="/activitylogs" component={ActivityLogs} />
           <PrivateRoute exact path="/logs" component={Activityform} />
           <PrivateRoute exact path="/reflections" component={ReflectionLogs} />
           <PrivateRoute exact path="/protected" component={ActivityLogs} />
