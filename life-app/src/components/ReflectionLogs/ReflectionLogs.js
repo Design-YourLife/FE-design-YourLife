@@ -15,7 +15,9 @@ const ReflectionLogs = props => {
 
   const Delete = (id) => {
     axiosWithAuth()
-      .delete(`reflection-logs/${localStorage.user}`, {"id": id})
+      .delete(`reflection-logs/${localStorage.user}`, {
+      body: {"id": id}
+    })
       .then(res => console.log(id + "Successfully Deleted", res))
       .catch(err => console.log(id + "has not been deleted: ", err.message))
     console.log("Delete button was pressed: " + id);
