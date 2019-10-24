@@ -61,17 +61,19 @@ export class Edit extends React.Component{
         console.log(props);
         super(props);
         this.state={
+            id: this.props.location.state.id,
             reflection: ''
         }
     }
 
     componentDidMount(){
         axiosWithAuth()
-            .get(`/reflection-logs/${localStorage.user}/${this.props.location.state.id}`)
+            .get(`/reflection-logs/${localStorage.user}/${this.state.id}`)
             .then(res => {
                 console.log(res.data.reflectionLog.reflection)
-            this.setState({
-                reflection: res.data.reflectionLog.reflection
+                this.setState({
+                    ...this.state,
+                    reflection: res.data.reflectionLog.reflection
                 });
             //   console.log("RES: ", res.data);
             })
@@ -95,10 +97,11 @@ export class Edit extends React.Component{
         document.location.reload(true);
     };
 
-    submitEdit(){
+    submitEdit = e => {
+        e.preventDefault();
         axiosWithAuth()
             .put(`/reflection-logs/${localStorage.user}`, {
-                "id": `${this.props.location.state.id}`,
+                "id": `${this.state.id}`,
                 "user_id": `${localStorage.userid}`,
                 "date":  `${new Date()}`,
                 "reflection": `${this.state.reflection}`
