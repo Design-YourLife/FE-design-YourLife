@@ -14,22 +14,21 @@ export class Add extends React.Component{
     };
 
     handleChange = (e) => {
-        return this.setState({
+        e.preventDefault();
+        this.setState({
             ...this.state,
             [e.target.name]: [e.target.value]
         });
     };
 
-    body = {
-        "user_id": `${localStorage.userid}`,
-        "date": `${new Date()}`,
-        "reflection": `${this.state.reflection}`
-    };
-
-    submit= e => {
+    submit = e => {
         e.preventDefault();
         axiosWithAuth()
-            .post(`/reflection-logs/${localStorage.user}`, this.body) 
+            .post(`/reflection-logs/${localStorage.user}`, {
+                "user_id": `${localStorage.userid}`,
+                "date":  `${new Date()}`,
+                "reflection": `${this.state.reflection}`
+            }) 
             .then(res => {
                 this.setLogs(res);
                 console.log("Successfully Added", res)

@@ -26,8 +26,8 @@ const ReflectionLogs = props => {
     <Fragment>
       <h2>Reflection Logs</h2>
       <Link to='/reflections/add' className="btn btn-primary btn-sm">Add Log</Link>
-      <Route exact path="/reflections/edit" component={() => <Edit reflectionLogs={setLogs}/>}/>
-      <Route exact path="/reflections/add" component={() => <Add reflectionLogs={setLogs} />} /> 
+      <Route exact path="/reflections/edit" component={() => <Edit setLogs={setLogs}/>}/>
+      <Route exact path="/reflections/add" component={() => <Add setLogs={setLogs} />} /> 
       <Route exact path="/reflections/delete" component={() => <Delete {...props} />} />
       <table className="table table-striped">
         <thead>
