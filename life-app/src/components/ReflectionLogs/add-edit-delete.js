@@ -5,10 +5,13 @@ export class Add extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            log: '',
-            date: new Date()
+            reflection: ''
         }
     }
+
+    setLogs = (input) => {
+        this.props.setLogs(input);
+    };
 
     handleChange = (e) => {
         return this.setState({
@@ -17,10 +20,17 @@ export class Add extends React.Component{
         });
     };
 
+    body = () => {
+        return this.state.reflection;
+    };
+
     submit(){
         axiosWithAuth()
-            .post(`/reflection-logs/${localStorage.user}`, this.state.log)
-            .then(res => console.log("Successfully Added", res))
+            .post(`/reflection-logs/${localStorage.user}`, this.body) 
+            .then(res => {
+                this.setLogs(res);
+                console.log("Successfully Added", res)
+            })
             .catch(err => console.log("has not been added: ", err))
     };
 
@@ -31,7 +41,7 @@ export class Add extends React.Component{
                 <form onSubmit={this.submit}>
                     <input
                         type="text"
-                        name="log"
+                        name="reflection"
                         placeholder={this.state.log}
                         onChange={this.handleChange}
                         value={this.state.log}
@@ -55,7 +65,7 @@ export class Edit extends React.Component{
 
     componentDidMount(){
         axiosWithAuth()
-            .get(`/reflection-logs/${localStorage.user}/${localStorage.userid}`)
+            .get(`/reflection-logs/${localStorage.user}/${localStorage.userid}/${this.props.id}`) //
             .then(res => {
                 // console.log(res.data.reflectionLog.reflection)
             this.setState({

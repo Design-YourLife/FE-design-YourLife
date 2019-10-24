@@ -33,7 +33,7 @@ class Header extends Component {
           </a>
           <ul className="navbar-nav  mt-lg-0">
             <li className="nav-item active">
-              <a className="nav-link" href="#">
+              <a className="nav-link" href="https://life-notes.netlify.com/">
                 Home <span className="sr-only">(current)</span>
               </a>
             </li>
