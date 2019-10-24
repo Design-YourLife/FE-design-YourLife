@@ -22,7 +22,7 @@ function App() {
           <Route exact path="/register" component={RegisterForm} />
           <PrivateRoute exact path="/activities" component={ActivityList} />
           <PrivateRoute exact path="/logs" component={ActivityLogs} />
-          <PrivateRoute exact path="/reflections" component={ReflectionLogs} />
+          <PrivateRoute path="/reflections" component={ReflectionLogs} />
           <PrivateRoute exact path="/protected" component={ActivityList} />
         </Switch>
       </div>
