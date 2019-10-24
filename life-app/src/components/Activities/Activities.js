@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { axiosWithAuth } from '../Authentication/axiosWithAuth';
 import ActivityCard from "./ActivityCard";
 
-export default function ActivityList() {
-  const [activity, setActivity] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`https://bw-designyourlife-api.herokuapp.com/api/`)
+export default function ActivityList() { 
+  
+  const [Activity, setActivity] = useState([])
+
+  useEffect( async () => {
+    await axiosWithAuth()
+      .get(`/activities/${ localStorage.user } / ${ localStorage.userid }`)
       .then(res => {
-        console.log("Activity: ", res.activity);
-        setActivity(res.activity);
-      });
+        setActivity(res.data);
+        console.log(res.data);
+        // console.log(props);
+      })
+      .catch(err => console.log(err.response));
   }, []);
+
+  console.log(Activity);
 
   return (
     <section className="activity-list">
-      {activity.map(act => {
-        return <ActivityCard key={act.id} />;
+      {Activity.map(Activity => {
+        return <ActivityCard activity={Activity} key={Activity.id} />;
       })}
     </section>
   );

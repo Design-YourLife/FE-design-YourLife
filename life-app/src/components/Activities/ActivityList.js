@@ -14,7 +14,7 @@ export default function ActivityList() {
 
   return (
     <div className="activity-list">
-
+      
     </div>
   )
 };
