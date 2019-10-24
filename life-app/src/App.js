@@ -6,6 +6,7 @@ import PrivateRoute from "./components/Authentication/PrivateRoute";
 import ActivityLogs from "./components/Activities/ActivityLogs";
 import ReflectionLogs from "./components/ReflectionLogs/ReflectionLogs";
 import Header from "./components/Routes/Header";
+import EditLog from "./components/Activities/EditLog";
 
 import Activityform from "./components/Activities/Activityform";
 import "./App.css";
@@ -20,7 +21,7 @@ function App() {
           <Route exact path="/" component={Login} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={RegisterForm} />
-
+          <Route exact path="/editlog" component={EditLog} />
           <PrivateRoute exact path="/activities" component={ActivityLogs} />
           <PrivateRoute exact path="/logs" component={Activityform} />
           <PrivateRoute exact path="/reflections" component={ReflectionLogs} />

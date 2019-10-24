@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { axiosWithAuth } from "../Authentication/axiosWithAuth";
 import moment from "moment";
+import { Routes, Redirect } from "react-router-dom";
 
 const Activities = props => {
   console.log(props);
@@ -35,7 +36,7 @@ const Activities = props => {
           </thead>
           <tbody>
             {activityList.map(activity => (
-              <tr key={activity.id}>
+              <tr key={activity.id} activity={activity}>
                 <td>{moment(activity.created_at).calendar()}</td>
                 <td>{activity.name}</td>
                 <td>{activity.description}</td>

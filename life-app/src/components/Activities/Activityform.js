@@ -56,6 +56,7 @@ class Activityform extends Component {
               name="description"
               placeholder="Log activity here"
               onChange={this.changeHandler}
+              value={description}
               rows="4"
             ></textarea>
           </div>
