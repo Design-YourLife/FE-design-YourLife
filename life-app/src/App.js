@@ -20,7 +20,6 @@ function App() {
           <Route exact path="/" component={Login} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={RegisterForm} />
-
           <PrivateRoute exact path="/activities" component={ActivityLogs} />
           <PrivateRoute exact path="/logs" component={Activityform} />
           <PrivateRoute exact path="/reflections" component={ReflectionLogs} />
