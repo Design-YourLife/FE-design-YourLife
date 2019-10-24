@@ -11,6 +11,7 @@ export class Add extends React.Component{
 
     setLogs = (input) => {
         this.props.setLogs(input);
+        document.location.reload(true);
     };
 
     handleChange = (e) => {
@@ -57,24 +58,24 @@ export class Add extends React.Component{
 
 export class Edit extends React.Component{
     constructor(props){
+        console.log(props);
         super(props);
         this.state={
-            id: props.id,
             reflection: ''
         }
     }
 
     componentDidMount(){
         axiosWithAuth()
-            .get(`/reflection-logs/${localStorage.user}/${localStorage.userid}/${this.props.id}`)
+            .get(`/reflection-logs/${localStorage.user}/${this.props.location.state.id}`)
             .then(res => {
-                // console.log(res.data.reflectionLog.reflection)
+                console.log(res.data.reflectionLog.reflection)
             this.setState({
                 reflection: res.data.reflectionLog.reflection
                 });
             //   console.log("RES: ", res.data);
             })
-            .catch(err => console.log("ERROR IN REFLECTION LOGS AXIOS", err));
+            .catch(err => console.log("ERROR IN REFLECTION LOGS AXIOS", err.message));
     }
 
     setLogs = log => {
@@ -82,6 +83,7 @@ export class Edit extends React.Component{
     };
 
     handleChange = (e) => {
+        e.preventDefault();
         return this.setState({
             ...this.state,
             [e.target.name]: [e.target.value]
@@ -96,7 +98,7 @@ export class Edit extends React.Component{
     submitEdit(){
         axiosWithAuth()
             .put(`/reflection-logs/${localStorage.user}`, {
-                "id": `${this.state.id}`,
+                "id": `${this.props.location.state.id}`,
                 "user_id": `${localStorage.userid}`,
                 "date":  `${new Date()}`,
                 "reflection": `${this.state.reflection}`

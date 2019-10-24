@@ -40,7 +40,7 @@ const ReflectionLogs = props => {
     <Fragment>
       <h2>Reflection Logs</h2>
       <Link to='/reflections/add' className="btn btn-primary btn-sm">Add Log</Link>
-      <Route exact path="/reflections/edit" component={() => <Edit setLogs={setLogs}/>}/>
+      <Route exact path="/reflections/edit" component={() => <Edit setLogs={setLogs} {...props}/>}/>
       <Route exact path="/reflections/add" component={() => <Add setLogs={setLogs} />} /> 
       <table className="table table-striped">
         <thead>
@@ -62,7 +62,6 @@ const ReflectionLogs = props => {
 
               <td>
                 <Link to={{pathname: `/reflections/edit`, state: { id: reflection.id } }} className="btn btn-primary btn-sm">Edit</Link>
-                {/* <Link to={{pathname: `reflections/delete`, state: { id: reflection.id } }} className="btn btn-primary btn-sm">Delete</Link> */}
                 <button onClick={() => {Delete(reflection.id);
                   }} className="btn btn-primary btn-sm">Delete</button> 
               </td>
