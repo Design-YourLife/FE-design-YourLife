@@ -1,15 +1,19 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { axiosWithAuth } from "../Authentication/axiosWithAuth";
 import moment from "moment";
-import { Routes, Redirect, Link } from "react-router-dom";
+import { Routes, Redirect } from "react-router-dom";
 
-const ActivityLogs = props => {
+const ActivityDisplay = props => {
   console.log(props);
   const [activityList, setActivityList] = useState([]);
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`/activities/${localStorage.user}/${localStorage.id}`)
+      .get(`/activities/${localStorage.user}`, {
+        data: {
+          user_id: `${localStorage.user_id}`
+        }
+      })
       .then(res => {
         setActivityList(res.data);
 
@@ -22,15 +26,7 @@ const ActivityLogs = props => {
     <Fragment>
       <div className="container">
         <div className="header">
-          <div className="header-container">
-            <h2>
-              ACTIVITY DETAILS
-              <h6>
-                <Link to="/list">Show All</Link>{" "}
-                <Link to="/logs">Add Activity</Link>
-              </h6>
-            </h2>
-          </div>
+          <h2>Activity List Component</h2>
         </div>
         <table className="table table-striped">
           <thead>
@@ -64,4 +60,4 @@ const ActivityLogs = props => {
     </Fragment>
   );
 };
-export default ActivityLogs;
+export default ActivityDisplay;

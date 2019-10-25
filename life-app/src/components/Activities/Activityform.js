@@ -1,3 +1,4 @@
+//Add activity form
 import React, { Component } from "react";
 import { axiosWithAuth } from "../Authentication/axiosWithAuth";
 
@@ -6,7 +7,6 @@ class Activityform extends Component {
     super(props);
 
     this.state = {
-      user_id: 2,
       name: "",
       description: ""
     };
@@ -22,14 +22,15 @@ class Activityform extends Component {
     axiosWithAuth()
       .post(`/activities/${localStorage.user}`, this.state)
       .then(response => {
-        this.props.history.push("/activities");
+        this.props.history.push("/activityLogs");
+        localStorage.setItem("id", response.data.id);
       })
       .catch(error => {
         console.log(error);
       });
   };
   render() {
-    const { user_id, name, description } = this.state;
+    const { name, description } = this.state;
 
     return (
       <div className="container post-form">
@@ -46,7 +47,7 @@ class Activityform extends Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="exampleFormControlTextarea1">
               ACTIVITY DESCRIPTION
             </label>
