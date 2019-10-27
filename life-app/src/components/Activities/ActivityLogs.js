@@ -27,7 +27,7 @@ const ActivityLogs = props => {
               ACTIVITY DETAILS
               <h6>
                 <Link to="/list">Show All</Link>{" "}
-                <Link to="/logs">Add Activity</Link>
+                <Link to="/activity/add">Add Activity</Link>
               </h6>
             </h2>
           </div>

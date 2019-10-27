@@ -6,7 +6,7 @@ import PrivateRoute from "./components/Authentication/PrivateRoute";
 import ActivityLogs from "./components/Activities/ActivityLogs";
 import ReflectionLogs from "./components/ReflectionLogs/ReflectionLogs";
 import Header from "./components/Routes/Header";
-import EditLog from "./components/Activities/EditLog";
+
 import ActivityDisplay from "./components/Activities/ActivityDisplay";
 import Activityform from "./components/Activities/Activityform";
 import "./App.css";
@@ -26,7 +26,7 @@ function App() {
           <Route exact path="/activities" component={Activities} />
           <Route exact path="/list" component={ActivityDisplay} />
           <PrivateRoute exact path="/activitylogs" component={ActivityLogs} />
-          <PrivateRoute exact path="/logs" component={Activityform} />
+          <PrivateRoute exact path="/activity/add" component={Activityform} />
           <PrivateRoute exact path="/reflections" component={ReflectionLogs} />
           <PrivateRoute exact path="/protected" component={ActivityLogs} />
         </Switch>

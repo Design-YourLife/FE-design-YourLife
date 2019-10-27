@@ -34,35 +34,39 @@ class Activityform extends Component {
 
     return (
       <div className="container post-form">
-        <form onSubmit={this.submitHandler}>
-          <div className="form-group">
-            <label for="exampleFormControlInput1">ACTIVITY NAME</label>
-            <input
-              className="form-control"
-              id="exampleFormControlInput1"
-              type="text"
-              name="name"
-              placeholder="Enter Title (7 words or less)"
-              value={name}
-              onChange={this.changeHandler}
-            />
-          </div>
-          <div className="form-group">
-            <label for="exampleFormControlTextarea1">
-              ACTIVITY DESCRIPTION
-            </label>
-            <textarea
-              className="form-control"
-              id="exampleFormControlTextarea1"
-              name="description"
-              placeholder="Log activity here"
-              onChange={this.changeHandler}
-              value={description}
-              rows="4"
-            ></textarea>
-          </div>
-          <button type="submit">Submit</button>
-        </form>
+        <div className="inputGroup">
+          <form onSubmit={this.submitHandler}>
+            <div className="form-group">
+              <label for="exampleFormControlInput1">ACTIVITY NAME</label>
+              <input
+                className="form-control"
+                id="exampleFormControlInput1"
+                type="text"
+                name="name"
+                placeholder="Enter Title (7 words or less)"
+                value={name}
+                onChange={this.changeHandler}
+              />
+            </div>
+            <div className="form-group">
+              <label for="exampleFormControlTextarea1">
+                ACTIVITY DESCRIPTION
+              </label>
+              <textarea
+                className="form-control"
+                id="exampleFormControlTextarea1"
+                name="description"
+                placeholder="Log activity here"
+                onChange={this.changeHandler}
+                value={description}
+                rows="4"
+              ></textarea>
+            </div>
+            <button className="btn-primary" type="submit">
+              SAVE
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
