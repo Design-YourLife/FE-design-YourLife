@@ -2,19 +2,21 @@ import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../Authentication/axiosWithAuth";
 
 const EditLog = props => {
+  console.log(props);
   const [activity, setActivity] = useState({
-    user_id: 2,
     name: "",
-    description: ""
+    description: "",
+    id: props.id,
+    user_id: props.user_id
   });
 
   useEffect(() => {
     axiosWithAuth()
       .get(`/activities/${localStorage.user}/${props.match.params.id}`)
       .then(res => {
-        setActivity(res.data);
+        setActivity(res.data[0]);
 
-        console.log(res.data);
+        console.log(res.data[0]);
       })
       .catch(err => console.log(err.response));
   }, [props.match.params.id]);
@@ -22,7 +24,7 @@ const EditLog = props => {
   const handleChange = e => {
     setActivity({
       ...activity,
-      [e.target.name]: [e.target.value]
+      [e.target.name]: e.target.value
     });
   };
   console.log(activity);
@@ -30,10 +32,13 @@ const EditLog = props => {
   const handleSubmit = e => {
     e.preventDefault();
     axiosWithAuth()
-      .put(`activities/${localStorage.user}/${props.match.params.id}`, activity)
+      .put(`activities/${localStorage.user}`, activity, {
+        body: { id: props.match.params.id }
+      })
+
       .then(res => {
-        props.updateActivity(res.data);
-        props.history.push("/");
+        props.history.push("/list");
+        console.log(this.state);
       })
       .catch(err => console.log(err.response));
   };
@@ -52,7 +57,7 @@ const EditLog = props => {
         <div className="baseline" />
 
         <input
-          type="textarea"
+          type="text"
           name="description"
           onChange={handleChange}
           placeholder="Description"
@@ -61,6 +66,8 @@ const EditLog = props => {
         <div className="baseline" />
 
         <button className="md-button update-button">Update</button>
+
+        <div className="baseline" />
       </form>
     </div>
   );

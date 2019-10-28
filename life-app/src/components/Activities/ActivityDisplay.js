@@ -13,7 +13,7 @@ const ActivityDisplay = props => {
       .then(res => {
         setActivityList(res.data);
 
-        console.log(res.data);
+        console.log(res.data[0]);
       })
       .catch(err => console.log(err.response));
   }, []);

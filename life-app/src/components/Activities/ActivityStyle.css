@@ -41,3 +41,33 @@
   font-size: 12px;
   font-weight: bold;
 }
+.table-container {
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 5px;
+}
+.table-container h1 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  border-bottom: 6px solid #edf0f5;
+  margin-bottom: 20px;
+  padding: 13px 0;
+  letter-spacing: 3px;
+  text-shadow: 2px 1px #d5d5d8;
+}
+.table-container a {
+  color: #4c65ff;
+  font-size: 16px;
+}
+.table-activity th {
+  color: #2f2f3c;
+  font-size: 20px;
+  font-weight: bold;
+}
+.table-body {
+  color: #2f2f3c;
+  font-size: 16px;
+  border-bottom: 1px solid #edf0f5;
+}
