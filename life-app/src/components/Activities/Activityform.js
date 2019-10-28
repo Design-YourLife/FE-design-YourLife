@@ -1,6 +1,7 @@
 //Add activity form
 import React, { Component } from "react";
 import { axiosWithAuth } from "../Authentication/axiosWithAuth";
+import "./ActivityStyle.css";
 
 class Activityform extends Component {
   constructor(props) {
@@ -33,7 +34,8 @@ class Activityform extends Component {
     const { name, description } = this.state;
 
     return (
-      <div className="container post-form">
+      <div className="a-container post-form">
+        <h1>ADD ACTIVITY</h1>
         <div className="inputGroup">
           <form onSubmit={this.submitHandler}>
             <div className="form-group">
@@ -62,7 +64,7 @@ class Activityform extends Component {
                 rows="4"
               ></textarea>
             </div>
-            <button className="btn-primary" type="submit">
+            <button className="btn-activity" type="submit">
               SAVE
             </button>
           </form>
