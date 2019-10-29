@@ -37,7 +37,7 @@ const ActivityDisplay = props => {
           </tr>
         </thead>
         <tbody>
-          {activityList.map(activity => (
+          {activityList.reverse().map(activity => (
             <tr key={activity.id} activity={activity}>
               <td>{moment(activity.created_at).calendar()}</td>
               <td>{activity.name}</td>
