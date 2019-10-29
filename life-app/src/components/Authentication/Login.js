@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { axiosWithAuth } from "./axiosWithAuth";
+import "./Auth.css";
 
 class Login extends React.Component {
   state = {
@@ -33,47 +34,51 @@ class Login extends React.Component {
           "login response"
         );
         localStorage.setItem("userid", res.data.user_id);
-        this.props.history.push("/logs");
+        this.props.history.push("/activity/add");
         console.log(this.state);
       })
-      .catch(err => console.log(err, err));
+      .catch(err => {
+        console.log(err, err);
+      });
   };
 
   render() {
     return (
-      <div className="col-md-6 m-auto">
-        <div className="card card-body mt-5">
-          <h2 className="text-center">Login</h2>
-          <form onSubmit={this.login}>
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                name="username"
-                value={this.state.credentials.username}
-                onChange={this.handleChange}
-                placeholder="Username"
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                className="form-control"
-                name="password"
-                value={this.state.credentials.password}
-                onChange={this.handleChange}
-                placeholder="Password"
-              />
-            </div>
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary">
-                Login
-              </button>
-            </div>
-            <p>
-              Don't have an account? <Link to="/register">Register</Link>
-            </p>
-          </form>
+      <div className="login">
+        <div class="bg-img">
+          <div className="box">
+            <h1>LOGIN</h1>
+            <form onSubmit={this.login}>
+              <div className="inputBox">
+                <input
+                  type="text"
+                  name="username"
+                  value={this.state.credentials.username}
+                  onChange={this.handleChange}
+                  placeholder="Username"
+                  required
+                />
+              </div>
+              <div className="inputBox">
+                <input
+                  type="password"
+                  name="password"
+                  value={this.state.credentials.password}
+                  onChange={this.handleChange}
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <button type="submit" className="btn-login">
+                  LOGIN
+                </button>
+              </div>
+              <p>
+                Don't have an account? <Link to="/register"> SIGN UP</Link>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     );
