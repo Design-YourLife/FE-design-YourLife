@@ -60,10 +60,12 @@ class Header extends Component {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                <Link to="/login" onClick={this.logout}>
-                  LOGOUT
-                </Link>
+              <a
+                className="nav-link"
+                onClick={this.logout}
+                href="https://life-notes.netlify.com/"
+              >
+                LOGOUT
               </a>
             </li>
           </ul>
