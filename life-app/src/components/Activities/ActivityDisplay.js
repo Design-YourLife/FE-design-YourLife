@@ -42,24 +42,6 @@ const ActivityDisplay = props => {
               <td>{moment(activity.created_at).calendar()}</td>
               <td>{activity.name}</td>
               <td>{activity.description}</td>
-
-              <td>
-                <Link
-                  to={{ pathname: `/activity/edit`, state: activity.id }}
-                  className="btn btn-primary btn-sm"
-                >
-                  Edit
-                </Link>
-              </td>
-              <td>
-                <Link
-                  to={{ pathname: `activity/delete`, state: activity.id }}
-                  onClick={() => document.location.reload(true)}
-                  className="btn btn-danger btn-sm"
-                >
-                  Delete
-                </Link>
-              </td>
             </tr>
           ))}
         </tbody>
