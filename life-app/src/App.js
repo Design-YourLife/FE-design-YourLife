@@ -32,7 +32,7 @@ function App() {
           />
           <PrivateRoute exact path="/activity/add" component={Activityform} />
           <PrivateRoute exact path="/list" component={ActivityDisplay} />
-          <PrivateRoute exact path="/reflections" component={ReflectionLogs} />
+          <PrivateRoute path="/reflections" component={ReflectionLogs} />
           <PrivateRoute
             exact
             path="/protected"

@@ -5,28 +5,31 @@ export class Add extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            reflection: ''
+            reflection: 'New Reflection'
         }
     }
 
     setLogs = (input) => {
         this.props.setLogs(input);
+        document.location.reload(true);
     };
 
     handleChange = (e) => {
-        return this.setState({
+        e.preventDefault();
+        this.setState({
             ...this.state,
             [e.target.name]: [e.target.value]
         });
     };
 
-    body = () => {
-        return this.state.reflection;
-    };
-
-    submit(){
+    submit = e => {
+        e.preventDefault();
         axiosWithAuth()
-            .post(`/reflection-logs/${localStorage.user}`, this.body) 
+            .post(`/reflection-logs/${localStorage.user}`, {
+                "user_id": `${localStorage.userid}`,
+                "date":  `${new Date()}`,
+                "reflection": `${this.state.reflection}`
+            }) 
             .then(res => {
                 this.setLogs(res);
                 console.log("Successfully Added", res)
@@ -37,16 +40,16 @@ export class Add extends React.Component{
     render(){
         return (
             <div className="add-form">
-                <h2>Add Log</h2>
+                <h2>Add Reflection</h2>
                 <form onSubmit={this.submit}>
                     <input
                         type="text"
                         name="reflection"
-                        placeholder={this.state.log}
+                        placeholder={this.state.reflection}
                         onChange={this.handleChange}
-                        value={this.state.log}
+                        value={this.state.reflection}
                     />
-                    <button onClick={this.submitEdit}>Submit</button>
+                    <button onClick={this.submit}>Submit</button>
                 </form>
             </div>
         );
@@ -55,25 +58,26 @@ export class Add extends React.Component{
 
 export class Edit extends React.Component{
     constructor(props){
+        console.log(props);
         super(props);
         this.state={
-            id: props.id,
-            log: '',
-            user_id: `${localStorage.userid}`
+            id: this.props.location.state.id,
+            reflection: ''
         }
     }
 
     componentDidMount(){
         axiosWithAuth()
-            .get(`/reflection-logs/${localStorage.user}/${localStorage.userid}/${this.props.id}`) //
+            .get(`/reflection-logs/${localStorage.user}/${this.state.id}`)
             .then(res => {
-                // console.log(res.data.reflectionLog.reflection)
-            this.setState({
-                log: res.data.reflectionLog.reflection
+                console.log(res.data.reflectionLog.reflection)
+                this.setState({
+                    ...this.state,
+                    reflection: res.data.reflectionLog.reflection
                 });
             //   console.log("RES: ", res.data);
             })
-            .catch(err => console.log("ERROR IN REFLECTION LOGS AXIOS", err));
+            .catch(err => console.log("ERROR IN REFLECTION LOGS AXIOS", err.message));
     }
 
     setLogs = log => {
@@ -81,6 +85,7 @@ export class Edit extends React.Component{
     };
 
     handleChange = (e) => {
+        e.preventDefault();
         return this.setState({
             ...this.state,
             [e.target.name]: [e.target.value]
@@ -92,9 +97,15 @@ export class Edit extends React.Component{
         document.location.reload(true);
     };
 
-    submitEdit(){
+    submitEdit = e => {
+        e.preventDefault();
         axiosWithAuth()
-            .put(`/reflection-logs/${localStorage.user}`, this.state)
+            .put(`/reflection-logs/${localStorage.user}`, {
+                "id": `${this.state.id}`,
+                "user_id": `${localStorage.userid}`,
+                "date":  `${new Date()}`,
+                "reflection": `${this.state.reflection}`
+            })
             .then(res => {
                 this.setLogs(res);
                 console.log("ID " + this.state.id + "Successfully Edited", res)
@@ -106,27 +117,17 @@ export class Edit extends React.Component{
     render(){
         return (
         <div className="edit-form">
-            <h2>Edit Log</h2>
+            <h2>Edit Reflection</h2>
             <form onSubmit={this.submitEdit}>
                 <input
                     type="text"
-                    name="log"
-                    placeholder={this.state.log}
+                    name="reflection"
+                    placeholder={this.state.reflection}
                     onChange={this.handleChange}
-                    value={this.state.log}
+                    value={this.state.reflection}
                 />
                 <button onClick={this.submitEdit}>Submit</button>
             </form>
         </div>
     );}
-};
-
-export function Delete (props) {
-    useEffect(() => {
-        axiosWithAuth()
-            .delete(`/reflection-logs/${localStorage.user}`, {id: props.id})
-            .then(res => console.log(props.id + "Successfully Deleted", res))
-            .catch(err => console.log(props.id + "has not been deleted: ", err))
-    }, []);
-    this.props.history.push(`/reflections`);
 };
