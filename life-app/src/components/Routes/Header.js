@@ -10,7 +10,7 @@ class Header extends Component {
     localStorage.setItem("token", "");
     localStorage.setItem("user", "");
     localStorage.setItem("userid", "");
-    this.props.history.push("/login");
+    // this.props.history.push("/home");
   };
 
   render() {
@@ -59,8 +59,8 @@ class Header extends Component {
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                <Link onClick={this.logout}>LOGOUT</Link>
+              <a className="nav-link" onClick={this.logout} href="https://life-notes.netlify.com/">
+                LOGOUT
               </a>
             </li>
           </ul>

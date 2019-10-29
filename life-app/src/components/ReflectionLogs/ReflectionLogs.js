@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { axiosWithAuth } from "../Authentication/axiosWithAuth";
 import moment from "moment";
-import { Add, Edit, Delete } from './add-edit-delete';
+import { Add, Edit } from './add-edit';
 import { Route, Link } from 'react-router-dom';
 
 const ReflectionLogs = props => {
@@ -13,6 +13,19 @@ const ReflectionLogs = props => {
     return setReflectionLogs(log);
   };
 
+  const Delete = (id) => {
+    axiosWithAuth()
+      .delete(`reflection-logs/${localStorage.user}`, {
+        data: {"id": id}
+      })
+      .then(res => {
+        document.location.reload(true);
+        console.log(id + "Successfully Deleted", res);
+      })
+      .catch(err => console.log(id + "has not been deleted: ", err.message))
+    console.log("Delete button was pressed with body: " + id);
+};
+
   useEffect(() => {
     axiosWithAuth()
       .get(`/reflection-logs/${localStorage.user}`) ///${localStorage.userid}
@@ -22,13 +35,13 @@ const ReflectionLogs = props => {
       })
       .catch(err => console.log("ERROR IN REFLECTION LOGS AXIOS", err));
   }, []);
+
   return (
     <Fragment>
       <h2>Reflection Logs</h2>
       <Link to='/reflections/add' className="btn btn-primary btn-sm">Add Log</Link>
-      <Route exact path="/reflections/edit" component={() => <Edit reflectionLogs={setLogs}/>}/>
-      <Route exact path="/reflections/add" component={() => <Add reflectionLogs={setLogs} />} /> 
-      <Route exact path="/reflections/delete" component={() => <Delete {...props} />} />
+      <Route exact path="/reflections/edit" component={() => <Edit setLogs={setLogs} {...props}/>}/>
+      <Route exact path="/reflections/add" component={() => <Add setLogs={setLogs} />} /> 
       <table className="table table-striped">
         <thead>
           <tr>
@@ -48,8 +61,9 @@ const ReflectionLogs = props => {
               <td>{reflection.reflection}</td>
 
               <td>
-                <Link to={{pathname: `/reflections/edit`, state: reflection.id }} className="btn btn-primary btn-sm">Edit</Link>
-                <Link to={{pathname: `reflections/delete`, state: reflection.id }} onClick={() => document.location.reload(true)} className="btn btn-primary btn-sm">Delete</Link>
+                <Link to={{pathname: `/reflections/edit`, state: { id: reflection.id } }} className="btn btn-primary btn-sm">Edit</Link>
+                <button onClick={() => {Delete(reflection.id);
+                  }} className="btn btn-primary btn-sm">Delete</button> 
               </td>
             </tr>
           ))) : (<p>Please add a reflection</p>)}
